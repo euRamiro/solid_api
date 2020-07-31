@@ -1,0 +1,37 @@
+construção de api aplicando os príncipios do solid
+code/drops #44 da rocketseat
+  https://www.youtube.com/watch?v=vAV4Vy4jfkc&t=487s
+
+
+-Quando se desenvolve seguindo os príncipios de solid o useCase=implementação da 
+criação do usuário não sabe onde estão armazenados estes usuários, a implementação
+sabe qual a forma de comunicação que vai ter com o respositório(poderia ser
+postgres, mongodb e por ai vai).
+A lógica fica separada da camada que se comunica com o que está fora da aplicação.
+
+-IUserRepository.ts = define qual o formato que respositório de usuário tem.
+
+-CreateUserUseCase.ts = 
+[S]ingle Responsibility Principle (Princípio da Responsabilidade Única), a única
+responsabilidade da clase é verificar se o usuário existe ou não e criar esse usuário,
+não importar se salvar em um arquivo .json, banco de dados local ou externo.
+Essa criação de usuário pode ser chamada de qualquer lugar da aplicação.
+
+[L]iskov Substitution Principle (Princípio da Substituição de Liskov);
+o CreateUserUseCase não sabe com quem está interagindo(postgres, mongodb ou etc), 
+se tiver os métodos da interface está tudo certo.
+
+[D]ependency Inversion Principle (Princípio da Inversão de Dependências), não 
+chama diretamente o respositório, chama os métodos. 
+O useCase se preocupa apenas com a lógica/regra de negócio.
+
+
+- Toda a conexão com o externo está abstraido nos providers
+
+- Cada classe tem uma responsabilidade
+    CreateUserUseCase.ts -> criar usuário
+    CreateUserController.ts -> comunicação com o externo através do http,
+          receber a requisição de criação de usuário, processar requisição 
+          através do CreateUserUseCase e devolver uma resposta.
+    CreateUserDTO.ts -> Data Transfer Object, usado para tranportar dados entre camadas.
+          Define formato dos dados.
