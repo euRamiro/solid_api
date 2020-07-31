@@ -9,8 +9,8 @@ export class MailTrapMailProvider {
       host: "smtp.mailtrap.io",
       port: 2525,
       auth: {
-        user: "840e8e96b5b42b",
-        pass: "563e9daaa0e246"
+        user: "user_name",
+        pass: "user_password"
       }
     });
   }
